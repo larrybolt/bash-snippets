@@ -118,3 +118,22 @@ rm directory || echo "Directory doesn't exist!"
 
 ```
 
+## Specific unixy things
+
+### Grep to get ip address from stream
+
+```bash
+cat filename | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b"
+```
+
+### Group and count groups
+
+```bash
+cat filename | sort | uniq -c
+
+# eg, get ip address from running docker containers, sorted from most often to least
+docker-compose logs | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq -c | sort -r
+```
+
+
+
