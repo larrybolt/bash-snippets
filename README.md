@@ -1,6 +1,8 @@
 # Bash snippets
 Because I keep forgetting
 
+## Index
+
 <!-- toc -->
 
 - [Bash Shebang && starting point](#bash-shebang--starting-point)
