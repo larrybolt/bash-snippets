@@ -15,6 +15,7 @@ Because I keep forgetting
 - [General unix things](#general-unix-things)
   * [redirections of stdout and stderr](#redirections-of-stdout-and-stderr)
   * [Run command in the background](#run-command-in-the-background)
+  * [Chaining commands](#chaining-commands)
 
 <!-- tocstop -->
 
@@ -74,10 +75,12 @@ hello_world human
 ### redirections of stdout and stderr
 ```bash
 # to separate files
+command > filename_for_stdout 2> filename_for_stderr
+# eg:
 command > $HOME/command.log 2> $HOME/command.error.log
 
 # to same file
-command &> ./command.log
+command &> filename
 
 # ignore stdout and stderr
 command &> /dev/null
@@ -85,9 +88,33 @@ command &> /dev/null
 ### Run command in the background
 ```bash
 # will exit when you logout of the shell or close the terminal
-nohup sleep 10 && date >> testing.log &
+command &
+# eg:
+sleep 10 && date >> testing.log &
 
 # will keep running if you logout / close the shell
+nohup command &
+# eg:
 nohup sleep 10 && date >> testing.log &
+```
+
+### Chaining commands
+
+```bash
+# run only if each of them is successful
+command1 && command2
+# eg:
+mkdir -p this/path/will-exist && mv file this/path/will-exist/
+
+# run next one regardless of previous one
+command1; command2
+# eg:
+npm install; tput bel
+
+# run next one only if previous one returned an error
+command1 || command2
+# eg:
+rm directory || echo "Directory doesn't exist!"
+
 ```
 
