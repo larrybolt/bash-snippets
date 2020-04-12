@@ -1,6 +1,21 @@
 # Bash snippets
 Because I keep forgetting
 
+<!-- toc -->
+
+- [Bash Shebang && starting point](#bash-shebang--starting-point)
+- [Checks](#checks)
+  * [If a directory (doesn't) exist](#if-a-directory-doesnt-exist)
+  * [If a file exists](#if-a-file-exists)
+  * [If a command exists](#if-a-command-exists)
+- [Language](#language)
+  * [functions](#functions)
+- [General unix things](#general-unix-things)
+  * [redirections of stdout and stderr](#redirections-of-stdout-and-stderr)
+  * [Run command in the background](#run-command-in-the-background)
+
+<!-- tocstop -->
+
 ## Bash Shebang && starting point
 
 ```bash
