@@ -6,6 +6,10 @@ Because I keep forgetting
 <!-- toc -->
 
 - [Bash Shebang && starting point](#bash-shebang--starting-point)
+- [Input, prompt and parameters/arguments](#input-prompt-and-parametersarguments)
+  * [Check if argument is set](#check-if-argument-is-set)
+  * [Have defaults for arguments](#have-defaults-for-arguments)
+  * [Prompt for user confirmation](#prompt-for-user-confirmation)
 - [Checks](#checks)
   * [If a directory (doesn't) exist](#if-a-directory-doesnt-exist)
   * [If a file exists](#if-a-file-exists)
@@ -16,6 +20,10 @@ Because I keep forgetting
   * [redirections of stdout and stderr](#redirections-of-stdout-and-stderr)
   * [Run command in the background](#run-command-in-the-background)
   * [Chaining commands](#chaining-commands)
+- [Specific unixy things](#specific-unixy-things)
+  * [Grep to get ip address from stream](#grep-to-get-ip-address-from-stream)
+  * [Group and count groups](#group-and-count-groups)
+- [Exiting](#exiting)
 
 <!-- tocstop -->
 
@@ -27,6 +35,41 @@ set -o errexit  # Exit on most errors (see the manual)
 set -o errtrace # Make sure any error trap is inherited
 set -o nounset  # Disallow expansion of unset variables
 set -o pipefail # Use last non-zero exit code in a pipeline
+```
+
+## Input, prompt and parameters/arguments
+
+When running a script the script/command is stored in `$0`, the arguments are passed to `$1`, `$2` ... etc.
+
+### Check if argument is set
+
+```bash
+# command requires two arguments
+if [[ $# -ne 2  ]]; then
+  echo "usage: $0 ARGS1 ARG2"
+  exit 1
+fi
+```
+
+### Have defaults for arguments
+
+```bash
+ARG1=${1:-DEFAULTVALUE}
+```
+
+### Prompt for user confirmation
+
+```bash
+read -r -p "Are you ready for command1? [y/N] " response
+if [[ $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
+  command1
+fi
+
+# exit unless the user enters yes:
+read -r -p "Continue? [y/N] " response
+if [[ ! $response =~ ^([yY][eE][sS]|[yY])$ ]]; then
+  exit
+fi
 ```
 
 ## Checks
@@ -133,6 +176,16 @@ cat filename | sort | uniq -c
 
 # eg, get ip address from running docker containers, sorted from most often to least
 docker-compose logs | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq -c | sort -r
+```
+
+## Exiting
+
+```bash
+# all is well
+exit
+
+# exiting because of an error
+exit 1
 ```
 
 
