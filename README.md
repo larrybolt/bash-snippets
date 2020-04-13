@@ -23,6 +23,7 @@ Because I keep forgetting
 - [Specific unixy things](#specific-unixy-things)
   * [Grep to get ip address from stream](#grep-to-get-ip-address-from-stream)
   * [Group and count groups](#group-and-count-groups)
+  * [Split by character and get nth item](#split-by-character-and-get-nth-item)
 - [Exiting](#exiting)
 
 <!-- tocstop -->
@@ -177,6 +178,24 @@ cat filename | sort | uniq -c
 # eg, get ip address from running docker containers, sorted from most often to least
 docker-compose logs | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | sort | uniq -c | sort -r
 ```
+
+### Split by character and get nth item
+
+```bash
+# split by : and get Nth item
+echo "col1:col2:col3:col4" | cut -d: -f1   # col1
+echo "col1:col2:col3:col4" | cut -d: -f2   # col2
+echo "col1:col2:col3:col4" | cut -d: -f2-3 # col2:col3
+echo "col1:col2:col3:col4" | cut -d: -f2-  # col2:col3:col4
+
+# get last field
+echo "col1:col2:col3:col4" | rev | cut -d: -f1 | rev # col4
+
+# split by space and get Nth item
+echo "col1 col2 col3 col4" | cut -d' ' -f2
+```
+
+
 
 ## Exiting
 
