@@ -16,6 +16,7 @@ Because I keep forgetting
   * [If a command exists](#if-a-command-exists)
 - [Language](#language)
   * [functions](#functions)
+  * [Equality Operators](#equality-operators)
 - [General unix things](#general-unix-things)
   * [redirections of stdout and stderr](#redirections-of-stdout-and-stderr)
   * [Run command in the background](#run-command-in-the-background)
@@ -24,6 +25,8 @@ Because I keep forgetting
   * [Grep to get ip address from stream](#grep-to-get-ip-address-from-stream)
   * [Group and count groups](#group-and-count-groups)
   * [Split by character and get nth item](#split-by-character-and-get-nth-item)
+  * [Get the Nth first or last lines](#get-the-nth-first-or-last-lines)
+  * [Get the Nth lines before or after a match](#get-the-nth-lines-before-or-after-a-match)
 - [Exiting](#exiting)
 
 <!-- tocstop -->
@@ -114,6 +117,25 @@ hello_world () {
 hello_world human
 ```
 
+### Equality Operators
+
+```bash
+# strings
+a=foo
+[ "$a" = foo ]; echo "$?"  # POSIX, use this, works in bash, sh, zsh...
+[ "$a" == foo ]; echo "$?" # only works in bash
+
+# numbers
+b=123
+[ "$b" -eq 123 ]; echo "$?" # equals
+[ "$b" -ne 432 ]; echo "$?" # not equals
+
+[ "$b" -lt 200 ]; echo "$?" # <  lesser than
+[ "$b" -gt 100 ]; echo "$?" # >  greater than
+[ "$b" -le 123 ]; echo "$?" # <= lesser or equal
+[ "$b" -ge 123 ]; echo "$?" # >= greater or equal
+```
+
 ## General unix things
 
 ### redirections of stdout and stderr
@@ -193,6 +215,22 @@ echo "col1:col2:col3:col4" | rev | cut -d: -f1 | rev # col4
 
 # split by space and get Nth item
 echo "col1 col2 col3 col4" | cut -d' ' -f2
+```
+
+### Get the Nth first or last lines
+
+```bash
+# Get the 10 first lines of filename
+cat filename | head -10
+
+# Get the 10 last lines of filename
+cat filename | tail -10
+```
+
+### Get the Nth lines before or after a match
+
+```bash
+cat filename | grep -A 10 -o 'amis.*'
 ```
 
 
