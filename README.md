@@ -7,6 +7,7 @@ Because I keep forgetting
 
 - [Bash Shebang && starting point](#bash-shebang--starting-point)
 - [Input, prompt and parameters/arguments](#input-prompt-and-parametersarguments)
+  * [Get current script directory](#get-current-script-directory)
   * [Check if argument is set](#check-if-argument-is-set)
   * [Have defaults for arguments](#have-defaults-for-arguments)
   * [Prompt for user confirmation](#prompt-for-user-confirmation)
@@ -15,7 +16,8 @@ Because I keep forgetting
   * [If a file exists](#if-a-file-exists)
   * [If a command exists](#if-a-command-exists)
 - [Language](#language)
-  * [functions](#functions)
+  * [Special variables [*](https://www.gnu.org/software/bash/manual/bash.html#Special-Parameters)](#special-variables-httpswwwgnuorgsoftwarebashmanualbashhtml%23special-parameters)
+  * [functions [*](https://www.gnu.org/software/bash/manual/bash.html#Shell-Functions)](#functions-httpswwwgnuorgsoftwarebashmanualbashhtml%23shell-functions)
   * [Equality Operators](#equality-operators)
 - [General unix things](#general-unix-things)
   * [redirections of stdout and stderr](#redirections-of-stdout-and-stderr)
@@ -44,6 +46,16 @@ set -o pipefail # Use last non-zero exit code in a pipeline
 ## Input, prompt and parameters/arguments
 
 When running a script the script/command is stored in `$0`, the arguments are passed to `$1`, `$2` ... etc.
+
+### Get current script directory
+
+```bash
+# To resolve the full path: (in case of doubt)
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# When a relative pathname is sufficient
+DIR=$(dirname $0)
+```
 
 ### Check if argument is set
 
@@ -108,7 +120,18 @@ fi
 ```
 
 ## Language
-### functions
+
+### Special variables [*](https://www.gnu.org/software/bash/manual/bash.html#Special-Parameters)
+
+```bash
+echo "Last exit code: $?" # 0 means all was good
+echo "Amount of parameters: $#"
+echo "Script name: $0"
+echo "First parameter: $1"
+echo "All parameters: $@" # but not $0
+```
+
+### functions [*](https://www.gnu.org/software/bash/manual/bash.html#Shell-Functions)
 ```bash
 hello_world () {
    echo "hello world, $1!"
