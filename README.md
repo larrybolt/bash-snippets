@@ -272,3 +272,4 @@ exit 1
 
 
 
+https://til.simonwillison.net/til/til/bash_escaping-a-string.md
